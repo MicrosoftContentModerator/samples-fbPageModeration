@@ -3,7 +3,7 @@
 # Connect a Facebook Page to Content Moderator
 This sample shows how you can connect a Facebook Page to Content Moderator and enable configurable workflows.
 
-##Description
+## Description
 Following is what we will do at a high level:
 
 1. Create a Content Moderator Team
@@ -12,7 +12,7 @@ Following is what we will do at a high level:
 
 Once the setup is done, all visitor posts on the Facebook Page would be sent to Content Moderator for executing the content workflow. Based on the thresholds specified in your Content Moderator workflow the posts would either be automatically un-hidden or go a through a human-review.
 
-##Step by step guide
+## Step by step guide
 ### Create a Content Moderator Team
 - [Create the team](https://docs.microsoft.com/en-us/azure/cognitive-services/Content-Moderator/quick-start)
 - [Configure connectors and workflows](https://docs.microsoft.com/en-us/azure/cognitive-services/Content-Moderator/review-tool-user-guide/workflows)
@@ -57,8 +57,8 @@ For this step you will need to login to the [Azure Management Portal](https://po
 
 ----------
 
-###Configure the Facebook Page and App:
-####Create a Facebook App
+### Configure the Facebook Page and App:
+#### Create a Facebook App
  - Navigate to [https://developers.facebook.com/]()
  - Click on My Apps
  - Add a New App
@@ -68,7 +68,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
  - Once subscribed, scroll to feed and hit **subscribe**
 
 
-####Create a Facebook Page
+#### Create a Facebook Page
  - Navigate to [https://www.facebook.com/bookmarks/pages]() and create a new Facebook Page
  - Giving the Facebook App access to this page:
 	 - Navigate to [Graph API Explorer](https://developers.facebook.com/tools/explorer/)
@@ -78,7 +78,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 	 - Now append **/subscribed_apps** to URL and Send Get (empty response)
 	 - Send Post -> the response shall say **"success": true**
 
-####Create a non-expiring graph api access token
+#### Create a non-expiring graph api access token
  - Use the [Graph API Explorer](https://developers.facebook.com/tools/explorer/) to create a short lived user access token for the app
 	- Select Application
 	- Select Get User Access Token
@@ -86,7 +86,9 @@ For this step you will need to login to the [Azure Management Portal](https://po
 
  - We will use Postman for the next few steps:
 	 - Open postman (or get it [here](https://www.getpostman.com/))
-	 - Import these files..
+	 - Import these files 
+ 		- Postman Collection - [samples-fbPageModeration/Facebook Permanant Page Access Token.postman_collection.json]()
+		- Postman Environment - [samples-fbPageModeration/FB Page Access Token Environment.postman_environment.json]()
 	 - Update the Environment Variables:
 		 - 
 				
