@@ -27,14 +27,17 @@ For this step you will need to login to the [Azure Management Portal](https://po
  - Open the newly created function app
  - Navigate to Platform features -> Application Settings
  - Create the following application settings entries:
-	 - cm:SubscriptionKey
-	 - cm:TeamName
-	 - cm:TextWorkflow
-	 - cm:CallbackEndpoint
-	 - cm:Region
-	 - cm:ImageWorkflow
-	 - fb:VerificationToken
-	 - fb:PageAccessToken
+ 
+	 App setting|Description
+	 ----------|----------
+	 cm:TeamId|Your Content Moderator TeamId
+	 cm:SubscriptionKey|Your Content Moderator subscription key. Get it on Settings-> Credentials	 
+	 cm:Region|Your Content Moderator region
+	 cm:ImageWorkflow|Name of the workflow to run on Images
+	 cm:TextWorkflow|Name of the workflow to run on Texts
+	 cm:CallbackEndpoint|Url for the CMListener Function App that you create later in this guide
+	 fb:VerificationToken|This is secret that you put in and the same is used to subscribe to the facebook feed events
+	 fb:PageAccessToken|This is a facebook graph api access token that does not expire and allows the function Hide/Delete posts on your behalf.
 	 
 
  - *Create FBListener* - This function receives events from Facebook 
