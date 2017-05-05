@@ -19,7 +19,7 @@ Once the setup is done, all visitor posts on the Facebook Page would be sent to 
 
 ----------
 
-###Create Azure Functions
+### Create Azure Functions
 For this step you will need to login to the [Azure Management Portal](https://portal.azure.com)
 
  - Create a new resource group - 
