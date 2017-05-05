@@ -1,6 +1,6 @@
     
 
-# Connect a Facbook Page to Content Moderator
+# Connect a Facebook Page to Content Moderator
 This sample shows how you can connect a Facebook Page to Content Moderator and enable configurable workflows.
 
 ##Description
@@ -8,7 +8,7 @@ Following is what we will do at a high level:
 
 1. Create a Content Moderator Team
 2. Create Azure Functions that would listen for http events from Content Moderator and Facebook
-3. Create a Facebook Page and App and configureo
+3. Create a Facebook Page and App, and configure
 
 Once the setup is done, all visitor posts on the Facebook Page would be sent to Content Moderator for executing the content workflow. Based on the thresholds specified in your Content Moderator workflow the posts would either be automatically un-hidden or go a through a human-review.
 
@@ -45,6 +45,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 	 - Click Create
 	 - Replace the contents of the run.csx with the following: 
 
+```csharp
 			#r "Newtonsoft.Json"
 			using System;
 			using System.Collections.Generic;
@@ -195,7 +196,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 			{
 			    return System.Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process);
 			}
-
+```
  - *Create CMListener* - This function receives events from Content Moderator
 	 - Click on the "**+**" add to create new function.
 	 - Click on "**create your own custom function**"
