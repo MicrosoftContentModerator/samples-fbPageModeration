@@ -22,7 +22,7 @@ Once the setup is done, all visitor posts on the Facebook Page would be sent to 
 ### Create Azure Functions
 For this step you will need to login to the [Azure Management Portal](https://portal.azure.com)
 
- - Create a new resource group - 
+ - Create a new resource group
  - Add a Function App
  - Open the newly created function app
  - Navigate to Platform features -> Application Settings
@@ -92,10 +92,20 @@ For this step you will need to login to the [Azure Management Portal](https://po
 	 - Import these files 
  		- Postman Collection - [samples-fbPageModeration/Facebook Permanant Page Access Token.postman_collection.json]()
 		- Postman Environment - [samples-fbPageModeration/FB Page Access Token Environment.postman_environment.json]()
-	 - Update the Environment Variables:
-		 - 
-				
+	- Update the Environment Variables:
+		
+	Key|Value
+	----------|----------
+	appId| Insert your Facebook App Identifier here
+	appSecret| Insert your Facebook App's secret here
+	short_lived_token| Insert the short lived user access token you generated in the previous step
+	
+	- Now run the 3 APIs listed in the collection one by one:
+		- Select Generate Long-Lived Access Token and Click Send
+		- Select Get User ID and Click Send
+		- Select Get Permanent Page Access Token and Click Send
+	- Copy the "access_token" from the response and set this as the value for app setting "fb:PageAccessToken"
+	
+Well that was the last step!!
 
-
-
-
+Images and Text posted on your facebook page will now be sent to Content Moderator. Images that don't adhere to your policies would be taken down.
