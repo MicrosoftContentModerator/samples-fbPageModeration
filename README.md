@@ -39,7 +39,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 	 fb:PageAccessToken|This is a facebook graph api access token that does not expire and allows the function Hide/Delete posts on your behalf.
 	 
 
- - *Create FBListener* - This function receives events from Facebook 
+ - *Create a new HttpTrigger-CShrap function named FBListener* - This function receives events from Facebook 
 	 - Click on the "**+**" add to create new function.
 	 - Click on "**create your own custom function**"
 	 - Click on the tile that says "HttpTrigger-CShrap"
@@ -48,7 +48,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 	 - Replace the contents of the run.csx with contents posted at [FbListener/run.csx](FbListener/run.csx)
 
 
- - *Create CMListener* - This function receives events from Content Moderator
+ - *Create a new HttpTrigger-CShrap function named CMListener* - This function receives events from Content Moderator
 	 - Click on the "**+**" add to create new function.
 	 - Click on "**create your own custom function**"
 	 - Click on the tile that says "HttpTrigger-CShrap"
