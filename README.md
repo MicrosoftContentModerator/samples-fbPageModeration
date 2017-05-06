@@ -108,3 +108,9 @@ For this step you will need to login to the [Azure Management Portal](https://po
 Well that was the last step!!
 
 Images and Text posted on your facebook page will now be sent to Content Moderator. Images that don't adhere to your policies would be taken down.
+
+### References
+- https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-github-webhook-triggered-function
+- http://ukimiawz.github.io/facebook/2015/08/12/webhook-facebook-subscriptions/
+- http://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
+
