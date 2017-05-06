@@ -99,7 +99,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
 private static async Task<string> CreateContentModerationJob(TraceWriter log, string postId, string contentType, string contentValue){
 
     var subscriptionKey= GetEnvironmentVariable("cm:SubscriptionKey");
-    var teamName = GetEnvironmentVariable("cm:TeamName");                   
+    var teamId = GetEnvironmentVariable("cm:TeamId");                   
     var callbackEndpoint =$"{GetEnvironmentVariable("cm:CallbackEndpoint")}%26fbpostid={postId}";
     var region = GetEnvironmentVariable("cm:Region");
 
@@ -110,7 +110,7 @@ private static async Task<string> CreateContentModerationJob(TraceWriter log, st
         case "image": { workflowName = GetEnvironmentVariable("cm:ImageWorkflow"); break;}
     }
 
-    var cmUrl = $"https://{region}.api.cognitive.microsoft.com/contentmoderator/review/v1.0/teams/{teamName}/jobs?ContentType={contentType}&ContentId={postId}&WorkflowName={workflowName}&CallBackEndpoint={callbackEndpoint}";             
+    var cmUrl = $"https://{region}.api.cognitive.microsoft.com/contentmoderator/review/v1.0/teams/{teamId}/jobs?ContentType={contentType}&ContentId={postId}&WorkflowName={workflowName}&CallBackEndpoint={callbackEndpoint}";             
     log.Info(cmUrl);
 
     var client = new HttpClient();    
