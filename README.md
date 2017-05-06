@@ -1,7 +1,7 @@
     
 
 # Connect a Facebook Page to Content Moderator
-This sample shows how you can connect a Facebook Page to Content Moderator and enable configurable workflows.
+This sample shows how you can connect a Facebook Page to Content Moderator workflows.
 
 ## Description
 Following is what we will do at a high level:
@@ -22,11 +22,10 @@ Once the setup is done, all visitor posts on the Facebook Page would be sent to 
 ### Create Azure Functions
 For this step you will need to login to the [Azure Management Portal](https://portal.azure.com)
 
- - Create a new resource group
- - Add a Function App
+ - Add a Function App (refer this [link](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal))
  - Open the newly created function app
  - Navigate to Platform features -> Application Settings
- - Create the following application settings entries:
+ - Create the following application settings entries (refer this [link](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings#settings)):
  
 	 App setting|Description
 	 ----------|----------
