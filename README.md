@@ -83,7 +83,7 @@ For this step you will need to login to the [Azure Management Portal](https://po
 #### Create a non-expiring graph api access token
  - Use the [Graph API Explorer](https://developers.facebook.com/tools/explorer/) to create a short lived user access token for the app
 	- Select Application
-	- Select Get User Access Token
+	- Select Get User Access Token, on the **Select Permissions** makes sure you have **manage_pages** and **publish_pages** selected
 	- We will the access token (Short Lived Token) in the next step
 
  - We will use Postman for the next few steps:
