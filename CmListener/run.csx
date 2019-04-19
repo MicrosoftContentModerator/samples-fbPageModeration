@@ -6,14 +6,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 
-public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
+public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 {
-    string body = await req.Content.ReadAsStringAsync();
-    log.Info($"CM Data: {body}");
+    string body = await new StreamReader(req.Body).ReadToEndAsync();
+    log.LogInformation($"CM Data: {body}");
 
     var eventData = JsonConvert.DeserializeObject<JObject>(body);
 
@@ -21,7 +22,7 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     var callbackType = (string)eventData["CallBackType"];
 
     //Getting postid from the callback url
-    var postId = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "fbpostid", true) == 0).Value;
+    var postId = req.Query["fbpostid"];
 
     switch(callbackType.ToLower())
     {
@@ -32,7 +33,8 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
             var reviewId = (string)eventData["ReviewId"];                           
 
             //If you have posts hidden by default then you can make it visible if there was no Review created
-            if(string.IsNullOrWhiteSpace(reviewId)){ 
+            if(string.IsNullOrWhiteSpace(reviewId))
+            { 
                 await UpdateFBPostVisibility(log, postId, false);
             }  
 
@@ -45,8 +47,9 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
             {
                 string name = x.Key;              
                 string val = (string)reviewerResult[name];
-                log.Info($"Tag: {name}, Value: {val}");
-                if(val.ToLower() == "true"){
+                log.LogInformation($"Tag: {name}, Value: {val}");
+                if(val.ToLower() == "true")
+                {
                    isAnyTagTrue = true; 
                    break;     
                 }
@@ -55,7 +58,8 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
             
             //You can delete the POST if it has tags that do not meet your policies
             //Following code deletes the post if any tag came back True 
-            if(isAnyTagTrue){
+            if(isAnyTagTrue)
+            {
                 await DeleteFBPost(log, postId);
             }
 
@@ -65,13 +69,13 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     }
 
     //Respond to Content Moderator with http 200 OK
-    return req.CreateResponse(HttpStatusCode.OK, "Callback Processed");
+    return (ActionResult)new OkObjectResult("Callback Processed");
 }
 
 //This method updates the visibility of the FB Post
-private static async Task UpdateFBPostVisibility(TraceWriter log, string postId, bool hide)
+private static async Task UpdateFBPostVisibility(ILogger log, string postId, bool hide)
 {
-    log.Info($"FB Updating Post Visibility: {postId}, Hidden: {hide}");
+    log.LogInformation($"FB Updating Post Visibility: {postId}, Hidden: {hide}");
 
     var fbPageAccessToken = GetEnvironmentVariable("fb:PageAccessToken");
     var fbUrl = $"https://graph.facebook.com/v2.9/{postId}?access_token={fbPageAccessToken}";               
@@ -81,22 +85,22 @@ private static async Task UpdateFBPostVisibility(TraceWriter log, string postId,
         {
             content.Add(new StringContent(hide.ToString().ToLower()), "is_hidden");                                     
             var result = await client.PostAsync(fbUrl, content);
-            log.Info($"FB Response: {result.ToString()}");
+            log.LogInformation($"FB Response: {result.ToString()}");
         }
     }    
 }
 
 //This method deletes the FB Post
-private static async Task DeleteFBPost(TraceWriter log, string postId)
+private static async Task DeleteFBPost(ILogger log, string postId)
 {
-    log.Info($"FB Deleting Post: {postId}");
+    log.LogInformation($"FB Deleting Post: {postId}");
 
     var fbPageAccessToken = GetEnvironmentVariable("fb:PageAccessToken");
     var fbUrl = $"https://graph.facebook.com/v2.9/{postId}?access_token={fbPageAccessToken}";               
     using (var client = new HttpClient())
     {
         var result = await client.DeleteAsync(fbUrl);
-        log.Info($"FB Response: {result.ToString()}");        
+        log.LogInformation($"FB Response: {result.ToString()}");        
     }    
 }
 
